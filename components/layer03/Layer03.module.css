@@ -127,7 +127,7 @@
 .tin {
   display: flex;
   gap: 8px;
-  align-items: baseline;
+  align-items: center;
   width: 100%;
   padding: 9px 12px;
   border: 0;
@@ -544,6 +544,18 @@
 }
 
 @media (max-width: 640px) {
+  .ps1 {
+    grid-area: ps1;
+  }
+  .cmdText {
+    grid-area: cmd;
+  }
+  .enterKey {
+    grid-area: key;
+    margin: 0;
+    padding: 2px 4px 2px 8px;
+    font-size: 10.5px;
+  }
   .crt {
     margin: 8px 4px 0;
     padding: 6px;
@@ -562,14 +574,15 @@
     padding: 10px 12px;
     font-size: 11.5px;
   }
-  .enterKey {
-    align-self: flex-end;
-    margin-top: 6px;
-  }
+  /* prompt header row: you@navi ~ % on the left, the keycap on the right; command below */
   .tin {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 2px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'ps1 key'
+      'cmd cmd';
+    align-items: center;
+    gap: 6px 10px;
     font-size: 12px;
     padding: 10px 12px;
     min-height: 44px;
