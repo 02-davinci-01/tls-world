@@ -98,6 +98,13 @@ export function CrtTerminal({ lines, prompt, busy, onRun, onKey, host, onTab, st
             <span className={s.caret} />
             {!prompt && !busy && <span className={s.hint}> pick a tab above</span>}
           </span>
+          {prompt && (
+            <span className={[s.enterKey, busy ? s.enterBusy : ''].join(' ')} aria-hidden="true">
+              <span className={s.enterPointer}>press enter</span>
+              <span className={s.enterTouch}>tap to run</span>
+              <kbd>↵</kbd>
+            </span>
+          )}
         </button>
       </div>
       <Apparition

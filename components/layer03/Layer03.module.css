@@ -177,6 +177,63 @@
 .hint {
   color: #4a4958;
 }
+/* the call to action: a keycap at the end of the prompt, breathing while a command waits */
+.enterKey {
+  flex: none;
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 5px 3px 10px;
+  border: 1px solid var(--crt-hi);
+  border-radius: 4px;
+  color: var(--crt-hi);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  animation: waiting 2.4s var(--slow) infinite;
+}
+.enterKey kbd {
+  font-family: var(--fm);
+  font-size: 12px;
+  line-height: 1;
+  padding: 3px 6px 2px;
+  border-radius: 3px;
+  background: var(--crt-hi);
+  color: var(--crt);
+  box-shadow: 0 2px 0 rgba(199, 182, 255, 0.35);
+}
+.tin:hover:not([aria-disabled='true']) .enterKey,
+.tin:focus-visible .enterKey {
+  animation: none;
+  background: rgba(199, 182, 255, 0.14);
+  box-shadow: 0 0 12px rgba(199, 182, 255, 0.35);
+}
+.tin:active:not([aria-disabled='true']) .enterKey kbd {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+/* while the tab types the command in, the key waits greyed out */
+.enterBusy {
+  animation: none;
+  opacity: 0.35;
+}
+.enterTouch {
+  display: none;
+}
+@media (hover: none) {
+  .enterPointer {
+    display: none;
+  }
+  .enterTouch {
+    display: inline;
+  }
+}
+@keyframes waiting {
+  0%, 100% { box-shadow: 0 0 0 rgba(199, 182, 255, 0); }
+  50% { box-shadow: 0 0 10px rgba(199, 182, 255, 0.45); }
+}
 .tabHost {
   white-space: nowrap;
 }
@@ -504,6 +561,10 @@
     height: 230px;
     padding: 10px 12px;
     font-size: 11.5px;
+  }
+  .enterKey {
+    align-self: flex-end;
+    margin-top: 6px;
   }
   .tin {
     flex-direction: column;
