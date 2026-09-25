@@ -1,0 +1,271 @@
+.legend {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--graphite);
+  margin: 0 0 20px;
+}
+.legend > span {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.interlude {
+  position: relative;
+  height: 170px;
+  margin: 56px -34px 50px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: #fff;
+  overflow: hidden;
+}
+.interlude svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.interludeApp {
+  inset: 0;
+}
+/* 0% until an image is supplied */
+.interludeApp:not([data-has-img]) {
+  opacity: 0;
+}
+:global(body.slots) .interludeApp:not([data-has-img]) {
+  opacity: 0.35;
+}
+.cap2 {
+  position: absolute;
+  right: 16px;
+  bottom: 10px;
+  font-family: var(--fm);
+  font-size: 10.5px;
+  color: var(--graphite);
+  background: #fff;
+  padding: 0 6px;
+  z-index: 3;
+}
+
+.stage {
+  position: relative;
+}
+.flyLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.trio {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 18px;
+}
+.trio.b {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.party {
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+  padding: 16px 16px 12px;
+  position: relative;
+}
+.party.mal {
+  border-color: var(--red);
+  background-image: radial-gradient(circle, rgba(192, 16, 28, 0.09) 2px, transparent 2.5px);
+  background-size: 17px 13px;
+}
+.pn {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.mal .pn {
+  color: var(--red);
+}
+.fine {
+  font-family: var(--fm);
+  font-size: 9.5px;
+  color: var(--faint);
+  margin-top: 6px;
+}
+
+.slot {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 0;
+  border-top: 1px dashed var(--rule);
+  opacity: 0.16;
+  filter: blur(2px);
+  transition: opacity 1s var(--slow), filter 1s var(--slow);
+}
+.slot.on {
+  opacity: 1;
+  filter: none;
+}
+.slot > span {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.slot em {
+  font-style: normal;
+  font-family: var(--fm);
+  font-size: 10.5px;
+  color: var(--graphite);
+}
+.slot em.redEm {
+  color: var(--red);
+}
+
+.blob {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(18, 18, 22, 0.35);
+  display: inline-grid;
+  place-items: center;
+  font-family: var(--fm);
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  color: #fff;
+}
+.blob.key {
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid var(--ink);
+}
+.blob.wire {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+.blob.legend {
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
+}
+.blob.dk {
+  color: var(--ink);
+}
+
+.f {
+  font-family: var(--fm);
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.lt {
+  font-weight: 700;
+}
+.lt.Y {
+  color: #a88600;
+}
+.lt.B {
+  color: var(--pB);
+}
+.lt.G {
+  color: #1c8a5c;
+}
+.lt.R {
+  color: var(--pR);
+}
+.eq {
+  display: block;
+  margin-top: 2px;
+}
+.res {
+  background: var(--wash);
+  padding: 1px 5px;
+}
+
+.wirecol {
+  border: 1px dashed var(--wired);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  background: rgba(236, 235, 247, 0.5);
+}
+.wh {
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--wired);
+}
+.witem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  animation: inkin 0.9s var(--slow);
+}
+.nokey {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 14px;
+  animation: inkin 1.2s var(--slow);
+}
+.try {
+  display: block;
+  margin-top: 8px;
+  font-size: 12.5px;
+  color: var(--graphite);
+}
+
+.flyer {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(18, 18, 22, 0.35);
+  pointer-events: none;
+  margin: -15px 0 0 -15px;
+  display: grid;
+  place-items: center;
+  font-family: var(--fm);
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.arrows {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--fm);
+  font-size: 10.5px;
+  color: var(--faint);
+  padding: 8px 2px 0;
+}
+
+@media (max-width: 960px) {
+  .interlude {
+    margin: 40px -20px;
+  }
+  .trio,
+  .trio.b {
+    grid-template-columns: 1fr;
+  }
+  .arrows {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .interlude {
+    margin: 36px -14px;
+    height: 130px;
+  }
+  .party,
+  .wirecol {
+    padding: 12px 12px 8px;
+  }
+}
+
+/* CSS Modules scope animation names, so shared keyframes (globals.css) are repeated here. */
+@keyframes inkin {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}

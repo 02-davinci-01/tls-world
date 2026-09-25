@@ -1,0 +1,179 @@
+.bar {
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  z-index: 80;
+  display: flex;
+  gap: 6px;
+  font-family: var(--fm);
+  font-size: 11px;
+}
+.barLeft {
+  left: 16px;
+}
+.barRight {
+  right: 16px;
+}
+/* quiet until you reach for them: faint ink on frosted paper, full ink on hover/focus */
+.bar > button {
+  border: 1px solid rgba(18, 18, 22, 0.18);
+  background: rgba(242, 242, 245, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--faint);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: var(--fm);
+  font-size: 11px;
+  transition: color 0.3s var(--slow), border-color 0.3s var(--slow), background 0.3s var(--slow);
+}
+.bar > button:hover,
+.bar > button:focus-visible {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: var(--sheet);
+}
+/* active: a violet dot rather than an inverted block */
+.bar > button.on::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--wired);
+  margin-right: 7px;
+  vertical-align: 1px;
+  opacity: 0.8;
+}
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+
+.idle {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0s 0.2s;
+}
+/* two gentle opacity changes over 1.4s (SPEC §9) */
+.idle.on {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: none;
+  animation: flickSoft 1.4s steps(1) 1;
+}
+@keyframes flickSoft {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  55% { opacity: 0.55; }
+  75% { opacity: 1; }
+  100% { opacity: 1; }
+}
+.idle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.04) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.pd {
+  font-weight: 600;
+  font-size: clamp(22px, 5vw, 64px);
+  letter-spacing: 0.3em;
+  padding-left: 0.3em; /* balance the trailing tracking so the words sit centred */
+  text-align: center;
+  line-height: 1.5;
+}
+.pd span {
+  display: block;
+}
+.pd span + span {
+  color: var(--red);
+}
+.hint {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--faint);
+}
+.idleCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 4vh, 36px);
+  padding: 0 16px;
+}
+.idleArt {
+  position: relative;
+  width: clamp(140px, 26vh, 280px);
+  aspect-ratio: 1;
+}
+.idleApp {
+  inset: 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--graphite);
+  letter-spacing: 0.08em;
+}
+.close {
+  font-size: 15px;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-family: var(--fd);
+}
+
+@media (max-width: 640px) {
+  .bar {
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  }
+  .barLeft {
+    left: 10px;
+  }
+  .barRight {
+    right: 10px;
+  }
+  .bar > button {
+    min-height: 36px;
+    padding: 6px 12px;
+  }
+  .pd {
+    font-size: clamp(20px, 7.4vw, 34px);
+    letter-spacing: 0.22em;
+    padding-left: 0.22em;
+  }
+}
+
+.hintTouch {
+  display: none;
+}
+@media (hover: none) {
+  .hintPointer {
+    display: none;
+  }
+  .hintTouch {
+    display: inline;
+  }
+}

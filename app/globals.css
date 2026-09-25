@@ -1,0 +1,189 @@
+/* ——— tokens (SPEC §3.2). Light-only by design. ——— */
+:root {
+  color-scheme: light;
+  --page: #f2f2f5;
+  --sheet: #fbfbfc;
+  --ink: #121216;
+  --graphite: #55565f;
+  --faint: #a6a7b1;
+  --rule: #d9d9e0;
+  --grid: rgba(18, 18, 22, 0.045);
+  --wired: #5b36d6;
+  --lilac: #b9a8f0;
+  --wash: #ecebf7;
+  --red: #c0101c;
+  --ok: #2f6b4f;
+  --crt: #0c0c11;
+  --crt-fg: #e6e4ef;
+  --crt-dim: #7b798c;
+  --crt-hi: #c7b6ff;
+  --crt-red: #ff4150;
+  /* paint (Layer:02) */
+  --pY: #f0cf3a;
+  --pB: #2f5bd8;
+  --pG: #25a36f;
+  --pR: #c0101c;
+  --slow: cubic-bezier(0.45, 0, 0.55, 1);
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font-family: var(--fd), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+code,
+pre {
+  font-family: var(--fm), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+:focus-visible {
+  outline: 2px solid var(--wired);
+  outline-offset: 2px;
+}
+a {
+  color: var(--wired);
+}
+::selection {
+  background: var(--red);
+  color: #fff;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
+}
+
+/* ——— keyframes ——— */
+@keyframes flick {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  12% { opacity: 0.2; }
+  18% { opacity: 1; }
+  40% { opacity: 1; }
+  44% { opacity: 0.4; }
+  48% { opacity: 1; }
+  100% { opacity: 1; }
+}
+@keyframes jitter {
+  0%, 100% { transform: none; }
+  20% { transform: translate(2px, -1px); }
+  40% { transform: translate(-3px, 1px); }
+  60% { transform: translate(1px, 2px); }
+  80% { transform: translate(-1px, -1px); }
+}
+@keyframes inkin {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ——— glitch primitives (SPEC §3.8) ——— */
+/* 1. RGB split */
+.rgb {
+  text-shadow: 1.5px 0 rgba(192, 16, 28, 0.75), -1.5px 0 rgba(91, 54, 214, 0.75);
+}
+/* 2. jitter */
+.jitter {
+  animation: jitter 0.12s steps(2) infinite;
+}
+/* 3. scanlines */
+.scanlines {
+  position: relative;
+}
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px);
+}
+/* 4. static lives in components/apparition (canvas) */
+
+.wiredword {
+  cursor: crosshair;
+  display: inline-block;
+}
+.wiredword:hover {
+  animation: jitter 0.18s steps(2) 3;
+  text-shadow: 2px 0 rgba(192, 16, 28, 0.8), -2px 0 rgba(91, 54, 214, 0.8);
+}
+
+/* default reveal: ink-in */
+.fade {
+  animation: inkin 1s var(--slow);
+}
+
+/* greed: one CRT glitch on the page before the overlay switches on (≤ 3 changes, no inversion) */
+body.crt-glitch .page {
+  animation: crtGlitch 0.36s steps(3) 1;
+}
+body.crt-glitch::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(18, 18, 22, 0.12) 0 1px, transparent 1px 3px);
+}
+@keyframes crtGlitch {
+  0% { transform: none; }
+  33% { transform: translate(-6px, 2px) skewX(2deg); filter: drop-shadow(4px 0 rgba(192, 16, 28, 0.65)) drop-shadow(-4px 0 rgba(91, 54, 214, 0.65)); }
+  66% { transform: translate(5px, -1px) skewX(-3deg); filter: drop-shadow(-3px 0 rgba(192, 16, 28, 0.65)) drop-shadow(3px 0 rgba(91, 54, 214, 0.65)); }
+  100% { transform: none; filter: none; }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 960px) {
+  .page {
+    padding: 0 14px 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001s !important;
+  }
+}

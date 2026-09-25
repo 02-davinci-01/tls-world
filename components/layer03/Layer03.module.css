@@ -1,0 +1,542 @@
+/* ——— CRT ——— */
+.crt {
+  position: relative;
+  background: var(--crt);
+  color: var(--crt-fg);
+  border-radius: 14px;
+  padding: 10px;
+  box-shadow: 0 0 0 1px var(--ink), 0 0 0 7px #d6d6dc, 0 0 0 8px var(--ink), 0 24px 40px -20px rgba(18, 18, 22, 0.5);
+  margin: 8px 8px 0;
+}
+.screen {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--fm);
+  font-size: 12.5px;
+  display: flex;
+  flex-direction: column;
+  animation: hz 4s steps(60) infinite;
+}
+@keyframes hz {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.985; }
+}
+.screen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+  z-index: 3;
+}
+.screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
+  pointer-events: none;
+  z-index: 3;
+}
+.screen.glitch {
+  animation: jitter 0.1s steps(2) 5;
+}
+.screen.glitch .tout {
+  filter: drop-shadow(2px 0 rgba(255, 65, 80, 0.7)) drop-shadow(-2px 0 rgba(199, 182, 255, 0.7));
+}
+.tbar {
+  padding: 7px 12px;
+  border-bottom: 1px solid #26252f;
+  font-size: 11px;
+  color: var(--crt-dim);
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  z-index: 4;
+}
+.status {
+  color: var(--crt-dim);
+}
+.tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tabs button {
+  border: 1px solid #3a3946;
+  background: transparent;
+  font-family: var(--fm);
+  font-size: 11px;
+  padding: 3px 10px;
+  cursor: pointer;
+  color: var(--crt-dim);
+}
+.tabs button.on {
+  border-color: var(--crt-hi);
+  color: var(--crt-hi);
+}
+.tabs button i {
+  font-style: normal;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+  background: var(--crt-hi);
+}
+.tabs button.redTab i {
+  background: var(--crt-red);
+}
+.tout {
+  height: 250px;
+  overflow: auto;
+  padding: 12px 170px 12px 16px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+  text-shadow: 0 0 6px rgba(199, 182, 255, 0.25);
+  scrollbar-color: #3a3946 transparent;
+}
+.tl {
+  display: block;
+  border-left: 2px solid transparent;
+  padding-left: 8px;
+  margin-left: -10px;
+  animation: inkin 0.5s var(--slow);
+}
+.tl[data-k] {
+  cursor: help;
+}
+.tl.bad {
+  color: var(--crt-red);
+}
+.tl.hl {
+  background: rgba(199, 182, 255, 0.12);
+  border-left-color: var(--crt-hi);
+}
+.tl.cmd {
+  color: var(--crt-hi);
+}
+.tl.boot {
+  color: var(--crt-dim);
+}
+.tin {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-top: 1px solid #26252f;
+  background: transparent;
+  font-family: var(--fm);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--crt-fg);
+  cursor: pointer;
+  position: relative;
+  z-index: 4;
+}
+.tin[aria-disabled='true'] {
+  cursor: default;
+}
+.tin:hover:not([aria-disabled='true']) {
+  background: rgba(199, 182, 255, 0.05);
+}
+.tin:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--crt-hi);
+}
+.ps1 {
+  flex: none;
+  color: var(--crt-hi);
+  white-space: nowrap;
+}
+.cmdText {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+/* break between words only, never at the hyphen in -connect */
+.word {
+  white-space: pre;
+}
+.caret {
+  display: inline-block;
+  width: 7px;
+  height: 1.05em;
+  margin-left: 1px;
+  vertical-align: -0.15em;
+  background: var(--crt-red);
+  animation: blink 0.9s steps(1) infinite;
+}
+.hint {
+  color: #4a4958;
+}
+.tabHost {
+  white-space: nowrap;
+}
+.ghost {
+  right: 26px;
+  top: 48px;
+  width: 132px;
+  height: 170px;
+  z-index: 2;
+}
+
+/* ——— chain ——— */
+.subh {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 52px 0 18px;
+}
+.subh h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.sub {
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--graphite);
+}
+.chainWrap {
+  position: relative;
+}
+.flyLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+.chain {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 84px minmax(0, 1fr) 84px minmax(0, 1fr) 84px minmax(0, 1fr);
+  align-items: stretch;
+}
+.node {
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: background 0.3s, border-color 0.3s, opacity 0.6s;
+}
+.role {
+  font-family: var(--fm);
+  font-size: 10.5px;
+  color: var(--graphite);
+}
+.nm {
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+.nt2 {
+  font-size: 12.5px;
+  color: var(--graphite);
+  line-height: 1.35;
+}
+.key,
+.keyfly {
+  font-family: var(--fm);
+  font-size: 11px;
+  border: 1px solid var(--wired);
+  color: var(--wired);
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: #fff;
+}
+.key {
+  margin-top: auto;
+  align-self: flex-start;
+}
+.keyfly {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+.trust {
+  border-width: 2px;
+}
+.hs {
+  border-style: dashed;
+}
+.miss {
+  border: 1.5px dashed var(--red);
+  background: repeating-linear-gradient(45deg, transparent 0 6px, rgba(192, 16, 28, 0.05) 6px 7px);
+}
+.miss .nm {
+  color: var(--red);
+}
+.node.dim {
+  opacity: 0.35;
+}
+.node.hl,
+.link.hl .seal {
+  background: var(--wash);
+}
+.link {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1.5px solid var(--ink);
+}
+.link.broken::before {
+  border-top: 1.5px dashed var(--red);
+}
+.link.off::before {
+  border-top-color: var(--rule);
+}
+.seal {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--faint);
+  background: var(--sheet);
+  display: grid;
+  place-items: center;
+  font-family: var(--fm);
+  font-size: 13px;
+  color: var(--faint);
+  transition: all 0.4s;
+}
+.seal.ok {
+  border-color: var(--wired);
+  color: #fff;
+  background: var(--wired);
+}
+.seal.bad {
+  border-color: var(--red);
+  color: #fff;
+  background: var(--red);
+}
+.seal.q {
+  border-color: var(--red);
+  color: var(--red);
+}
+.lk {
+  position: relative;
+  font-family: var(--fm);
+  font-size: 9.5px;
+  color: var(--graphite);
+  background: var(--sheet);
+  padding: 0 3px;
+  text-align: center;
+  line-height: 1.25;
+}
+.hlVerdict {
+  background: var(--wash);
+}
+
+/* ——— toy RSA ——— */
+.rsaPart {
+  margin-top: 56px;
+}
+.rsa {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.rbox {
+  border: 1px solid var(--ink);
+  background: var(--sheet);
+  padding: 11px 13px;
+  opacity: 0.18;
+  filter: blur(2px);
+  transition: opacity 0.9s var(--slow), filter 0.9s var(--slow);
+}
+.rbox.on {
+  opacity: 1;
+  filter: none;
+}
+.rbox > span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--graphite);
+}
+.rbox code {
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.rbox.priv {
+  border-style: dashed;
+}
+.rbox.mal {
+  border-color: var(--red);
+  background-image: radial-gradient(circle, rgba(192, 16, 28, 0.08) 2px, transparent 2.5px);
+  background-size: 17px 13px;
+}
+.okm {
+  color: var(--wired);
+  font-weight: 700;
+}
+.badm {
+  color: var(--red);
+  font-weight: 700;
+}
+.note {
+  font-size: 13px;
+  color: var(--graphite);
+  max-width: 72ch;
+  margin: 14px 0 0;
+}
+
+@media (max-width: 960px) {
+  .tout {
+    padding-right: 16px;
+  }
+  .ghost {
+    display: none;
+  }
+  .chain {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .link {
+    height: 64px;
+  }
+  .link::before {
+    left: 50%;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    border-top: 0;
+    border-left: 1.5px solid var(--ink);
+  }
+  .link.broken::before {
+    border-top: 0;
+    border-left: 1.5px dashed var(--red);
+  }
+  .link.off::before {
+    border-left-color: var(--rule);
+  }
+  .rsa {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CSS Modules scope animation names, so shared keyframes (globals.css) are repeated here. */
+@keyframes inkin {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}
+@keyframes jitter {
+  0%, 100% { transform: none; }
+  20% { transform: translate(2px, -1px); }
+  40% { transform: translate(-3px, 1px); }
+  60% { transform: translate(1px, 2px); }
+  80% { transform: translate(-1px, -1px); }
+}
+
+/* chain walk controls */
+.walkCtl {
+  display: inline-flex;
+  border: 1px solid var(--ink);
+  align-self: start;
+  justify-self: start;
+}
+.walkCtl button {
+  border: 0;
+  background: transparent;
+  width: 36px;
+  height: 30px;
+  font-family: var(--fm);
+  font-size: 14px;
+  cursor: pointer;
+}
+.walkCtl button + button {
+  border-left: 1px solid var(--ink);
+}
+.walkCtl button:hover:not(:disabled) {
+  background: var(--wash);
+  color: var(--wired);
+}
+.walkCtl button[aria-pressed='true'] {
+  background: var(--ink);
+  color: #fff;
+}
+.walkCtl button:disabled {
+  color: var(--faint);
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .crt {
+    margin: 8px 4px 0;
+    padding: 6px;
+    border-radius: 12px;
+  }
+  .tabs {
+    width: 100%;
+  }
+  .tabs button {
+    flex: 1 1 auto;
+    padding: 7px 10px;
+    text-align: left;
+  }
+  .tout {
+    height: 230px;
+    padding: 10px 12px;
+    font-size: 11.5px;
+  }
+  .tin {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    font-size: 12px;
+    padding: 10px 12px;
+    min-height: 44px;
+  }
+  .tabSep {
+    display: none;
+  }
+  .tabNote {
+    display: block;
+    padding-left: 12px;
+    color: #5a5968;
+    font-size: 10px;
+  }
+  .tabs button.on .tabNote {
+    color: var(--crt-dim);
+  }
+  .walkCtl button {
+    width: 48px;
+    height: 40px;
+  }
+  .subh {
+    margin-top: 40px;
+  }
+  .rbox code {
+    font-size: 13px;
+  }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

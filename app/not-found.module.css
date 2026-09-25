@@ -1,0 +1,39 @@
+.wrap {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  gap: 22px;
+  padding: 32px 16px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.card {
+  background: var(--ink);
+  color: #fff;
+  padding: 22px 26px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+  background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.035) 0 1px, transparent 1px 3px);
+}
+.lyr {
+  font-family: var(--fm);
+  font-size: 13px;
+  color: var(--lilac);
+}
+.word {
+  font-weight: 600;
+  font-size: clamp(28px, 6vw, 52px);
+  letter-spacing: 0.14em;
+  line-height: 1;
+}
+.body {
+  margin: 0;
+  color: var(--graphite);
+  font-size: 17px;
+}
+.back {
+  font-family: var(--fm);
+  font-size: 12px;
+}

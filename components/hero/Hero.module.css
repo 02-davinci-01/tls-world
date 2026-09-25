@@ -1,0 +1,68 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px;
+  gap: 40px;
+  padding: 34px 0 170px;
+}
+.hero h1 {
+  margin: 0;
+  font-weight: 300;
+  font-size: clamp(42px, 6.4vw, 82px);
+  letter-spacing: -0.045em;
+  line-height: 1;
+  max-width: 10ch;
+}
+.u {
+  font-weight: 600;
+  display: inline-block;
+}
+.lede {
+  max-width: 30ch;
+  color: var(--graphite);
+  font-size: clamp(19px, 2.2vw, 24px);
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin: 34px 0 0;
+}
+.meta {
+  margin: 40px 0 0;
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--graphite);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 18px;
+  max-width: 440px;
+}
+.meta dt {
+  color: var(--faint);
+}
+.meta dd {
+  margin: 0;
+}
+.rail {
+  opacity: 0;
+  animation: inkin 1.6s var(--slow) 2.2s forwards;
+}
+:global(html.booting) .rail {
+  animation-play-state: paused;
+}
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding-bottom: 100px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rail {
+    opacity: 1;
+  }
+}
+
+/* CSS Modules scope animation names, so shared keyframes (globals.css) are repeated here. */
+@keyframes inkin {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}

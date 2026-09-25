@@ -1,0 +1,95 @@
+.sky {
+  position: relative;
+  margin: 0 -32px;
+}
+.sky svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.pole {
+  stroke: var(--ink);
+  stroke-width: 3.2;
+  stroke-linecap: square;
+}
+.arm {
+  stroke: var(--ink);
+  stroke-width: 2.2;
+}
+.cab {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.1;
+}
+.ground {
+  stroke: var(--ink);
+  stroke-width: 0.7;
+}
+.lbl {
+  font-family: var(--fm);
+  font-size: 9px;
+  fill: var(--faint);
+}
+.hum {
+  fill: var(--wired);
+}
+.drawIn {
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 1600;
+  animation: draw 3s var(--slow) forwards;
+}
+.shadow {
+  fill: url(#rd);
+  opacity: 0;
+  animation: inkin 1.6s var(--slow) 2.4s forwards;
+}
+.figure {
+  /* stands on the ground line (y=268 of 300), just left of pole 02 (x=620 of 1180) */
+  width: 13.5%;
+  aspect-ratio: 1;
+  left: calc(52.5% - 14.2%);
+  bottom: calc(100% * 32 / 300);
+  transition: opacity 1.2s var(--slow);
+}
+/* hold the load moment until the boot screen hands over */
+:global(html.booting) .drawIn,
+:global(html.booting) .shadow {
+  animation-play-state: paused;
+}
+
+@media (max-width: 960px) {
+  .sky {
+    margin: 0 -14px;
+  }
+}
+/*
+ * Phones: keep the sky 190px tall and crop the sides (slice), so the poles stay legible.
+ * The drawing then renders at 190/300 = 0.633 scale, centred on x = 590.
+ */
+@media (max-width: 640px) {
+  .sky svg {
+    height: 190px;
+  }
+  .figure {
+    width: calc(159px * 0.633);
+    left: calc(50% + (452px - 590px) * 0.633);
+    bottom: calc(32px * 0.633);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawIn {
+    stroke-dashoffset: 0;
+  }
+  .shadow {
+    opacity: 1;
+  }
+}
+
+/* CSS Modules scope animation names, so shared keyframes (globals.css) are repeated here. */
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes inkin {
+  from { opacity: 0; filter: blur(6px); }
+  to { opacity: 1; filter: blur(0); }
+}

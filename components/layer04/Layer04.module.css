@@ -1,0 +1,248 @@
+/* Off-system on purpose (SPEC §6.5): system fonts, loud palette. */
+.adwrap {
+  margin: 0 7px 150px;
+  position: relative;
+}
+.adlabel {
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--faint);
+  margin-bottom: 10px;
+}
+.ad {
+  position: relative;
+  background: #ffe600;
+  color: #e0001b;
+  border: 4px dashed #e0001b;
+  padding: 0 0 26px;
+  overflow: hidden;
+  font-family: Impact, 'Arial Black', 'Helvetica Neue', sans-serif;
+  animation: adborder 1s steps(2) infinite;
+}
+@keyframes adborder {
+  50% { border-color: #0000ee; }
+}
+.tape {
+  background: #e0001b;
+  color: #ffe600;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  padding: 6px 0;
+}
+.tape span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marq 14s linear infinite;
+}
+@keyframes marq {
+  to { transform: translateX(-100%); }
+}
+.adbody {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px 34px;
+  align-items: center;
+  padding: 26px 34px 0;
+}
+.burst {
+  width: 150px;
+  height: 150px;
+  background: #e0001b;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 34px;
+  letter-spacing: 0.02em;
+  clip-path: polygon(50% 0, 61% 20%, 82% 9%, 80% 32%, 100% 38%, 85% 54%, 97% 74%, 74% 76%, 68% 98%, 50% 84%, 32% 98%, 26% 76%, 3% 74%, 15% 54%, 0 38%, 20% 32%, 18% 9%, 39% 20%);
+  animation: spin 6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.ad h3 {
+  margin: 0;
+  font-size: clamp(28px, 4.4vw, 52px);
+  font-weight: 400;
+  line-height: 1;
+  text-transform: uppercase;
+  color: #e0001b;
+  text-shadow: 3px 3px 0 #0000ee;
+}
+.blink {
+  animation: blink 0.7s steps(1) infinite;
+  color: #0000ee;
+  text-shadow: 3px 3px 0 #e0001b;
+}
+.pitch {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 19px;
+  color: #111;
+  margin: 10px 0 16px;
+}
+.pitch s {
+  color: #777;
+}
+.pitch b {
+  color: #e0001b;
+  font-size: 24px;
+}
+.adbtn {
+  font-family: Impact, 'Arial Black', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  background: linear-gradient(#3cf23c, #16a616);
+  color: #fff;
+  border: 3px outset #7dff7d;
+  padding: 12px 26px;
+  cursor: pointer;
+  text-shadow: 2px 2px 0 #0a5a0a;
+  animation: throb 1.1s ease-in-out infinite;
+}
+.adbtn:hover {
+  filter: brightness(1.1);
+}
+@keyframes throb {
+  50% { transform: scale(1.06); }
+}
+.adfine {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 10.5px;
+  color: #333;
+  margin-top: 14px;
+}
+.adfine u {
+  color: #0000ee;
+  cursor: pointer;
+}
+.adclose {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  width: 22px;
+  height: 22px;
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  font-family: Verdana, sans-serif;
+  font-size: 12px;
+  color: #000;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+/* ——— greed sequence ——— */
+.greed {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #fff;
+  color: var(--ink);
+  visibility: hidden;
+  overflow: auto;
+}
+.greed.visible {
+  visibility: visible;
+}
+/* CRT switch-on: a bright line that opens to the full screen */
+.visible {
+  animation: crtOn 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) 1;
+}
+.greed::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.035) 0 1px, transparent 1px 3px);
+}
+@keyframes crtOn {
+  0% { transform: scale(0.7, 0.004); filter: brightness(3); }
+  45% { transform: scale(1, 0.004); filter: brightness(2); }
+  100% { transform: none; filter: none; }
+}
+.inner {
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 18vh 28px 40px;
+}
+.q {
+  font-family: var(--fd);
+  font-weight: 300;
+  font-size: clamp(36px, 6.4vw, 78px);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  min-height: 1.15em;
+}
+.q::after {
+  content: '▍';
+  color: var(--red);
+  animation: blink 0.8s steps(1) infinite;
+}
+.q.typed::after {
+  content: '';
+}
+.br {
+  font-family: var(--fm);
+  font-size: 13px;
+  color: var(--graphite);
+  margin-top: 18px;
+  opacity: 0;
+  transition: opacity 0.8s;
+}
+.br b {
+  color: var(--red);
+  font-weight: 500;
+}
+.gif {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  aspect-ratio: 320 / 228;
+  margin-top: 28px;
+  opacity: 0;
+  transition: opacity 0.6s;
+}
+.gifApp {
+  inset: 0;
+}
+.redir {
+  font-family: var(--fm);
+  font-size: 12px;
+  color: var(--graphite);
+  margin-top: 18px;
+  opacity: 0;
+}
+.shown {
+  opacity: 1;
+}
+.esc {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  z-index: 2;
+  font-family: var(--fm);
+  font-size: 11px;
+  color: var(--faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+@media (max-width: 960px) {
+  .adbody {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+  .burst {
+    width: 110px;
+    height: 110px;
+    font-size: 26px;
+  }
+}
+
+/* CSS Modules scope animation names, so shared keyframes (globals.css) are repeated here. */
+@keyframes blink {
+  50% { opacity: 0; }
+}

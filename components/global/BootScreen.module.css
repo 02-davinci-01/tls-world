@@ -1,0 +1,83 @@
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--crt);
+  color: var(--crt-fg);
+  display: grid;
+  place-items: center;
+  font-family: var(--fm);
+  font-size: 12.5px;
+  transition: opacity 0.6s var(--slow);
+}
+.boot::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 3px);
+  pointer-events: none;
+}
+.boot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.6) 100%);
+  pointer-events: none;
+}
+.out {
+  opacity: 0;
+  pointer-events: none;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: 0 16px;
+}
+/* ≤ 240px square keeps the flicker inside WCAG 2.3.1's small-area allowance */
+.art {
+  position: relative;
+  width: min(240px, 58vw);
+  aspect-ratio: 1;
+}
+.artApp {
+  inset: 0;
+}
+.artOn .artApp {
+  opacity: 1;
+}
+.log {
+  width: min(320px, 86vw);
+  min-height: calc(7 * 1.6em);
+  line-height: 1.6;
+  text-shadow: 0 0 6px rgba(199, 182, 255, 0.25);
+  color: var(--crt-dim);
+}
+.log span {
+  display: block;
+  white-space: pre;
+}
+.log .red {
+  color: var(--crt-red);
+}
+.log .caret {
+  display: inline-block;
+  width: 7px;
+  height: 1.1em;
+  background: var(--crt-red);
+  animation: blink 0.8s steps(1) infinite;
+}
+.skip {
+  position: absolute;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10.5px;
+  color: #4a4958;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}

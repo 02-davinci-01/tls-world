@@ -1,0 +1,201 @@
+.go {
+  background: var(--ink);
+  color: #fff;
+  border: 1px solid var(--ink);
+  padding: 8px 18px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, border-color 0.2s;
+}
+.go:hover:not(:disabled) {
+  background: var(--wired);
+  border-color: var(--wired);
+}
+.ghost {
+  background: transparent;
+  border: 1px solid var(--ink);
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.go:disabled,
+.ghost:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--ink);
+}
+.seg button {
+  border: 0;
+  background: transparent;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.seg button + button {
+  border-left: 1px solid var(--ink);
+}
+.seg button.on {
+  background: var(--ink);
+  color: #fff;
+}
+.seg button[aria-disabled='true'] {
+  cursor: default;
+}
+
+.stamp {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--wired);
+  color: var(--wired);
+  font-family: var(--fm);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-9deg);
+}
+.stamp.no {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.verdict {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: 16px;
+  max-width: 800px;
+}
+
+.part h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.ph {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.btns {
+  display: flex;
+  gap: 8px;
+}
+.cap {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: start;
+  max-width: 800px;
+}
+.capWithControls {
+  grid-template-columns: auto 1fr auto;
+  max-width: none;
+}
+.capWithControls p {
+  max-width: 68ch;
+}
+@media (max-width: 600px) {
+  .capWithControls {
+    grid-template-columns: auto 1fr;
+  }
+  .capWithControls > :last-child {
+    grid-column: 1 / -1;
+  }
+}
+.dots {
+  display: flex;
+  gap: 6px;
+  padding-top: 6px;
+}
+.dots i {
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+}
+.dots i.on {
+  background: var(--ink);
+}
+.redDots i.on {
+  background: var(--red);
+  border-color: var(--red);
+}
+.cap p {
+  margin: 0;
+  font-size: 16px;
+  min-height: 52px;
+}
+
+@media (max-width: 640px) {
+  .seg {
+    display: flex;
+    width: 100%;
+  }
+  .seg button {
+    flex: 1;
+    padding: 9px 8px;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+  .go,
+  .ghost {
+    min-height: 40px;
+  }
+}
+
+/*
+ * Phones: a stepper's stage is taller than the screen once its cards stack, so the header
+ * (Replay / Next) sticks to the top and the caption to the bottom while the part is on screen.
+ * Only on screens tall enough to spare the room; the caption leaves space for the fixed bar.
+ */
+@media (max-width: 640px) {
+  .part h3 {
+    font-size: 20px;
+  }
+  .cap p {
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 0;
+  }
+}
+@media (max-width: 640px) and (min-height: 640px) {
+  .stickyHead {
+    position: sticky;
+    top: 0;
+    z-index: 7;
+    background: var(--sheet);
+    margin: 0 -14px 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stickyCap {
+    position: sticky;
+    bottom: 0;
+    z-index: 7;
+    background: var(--sheet);
+    margin: 16px -14px 0;
+    padding: 10px 14px calc(54px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--rule);
+    gap: 12px;
+  }
+  .stickyCap p {
+    font-size: 14.5px;
+  }
+}

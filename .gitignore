@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+.DS_Store
+
+# source originals are kept locally, not deployed
+source-assets/
+.claude/
+
+# design spec: kept locally, not published
+SPEC.md
+
+# local-only: not needed to build or run the site
+reference/
+.env.example
+.vercelignore
+public/lain/README.md
